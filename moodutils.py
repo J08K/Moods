@@ -49,7 +49,7 @@ class MoodSession:
         print("")
 
         self.session_id = int(check_last_session()[:-5]) + 1
-        with open(str("json\\" + self.session_id) + ".json", "w+") as file:
+        with open("json\\" + str(self.session_id) + ".json", "w+") as file:
             json.dump({"Session_id": self.session_id, "Session_start": self.session_start, "Moods": []}, file, indent=2)
 
     def add_message(self, text):
@@ -58,7 +58,7 @@ class MoodSession:
             file_data["Moods"].append(
                 {"time": datetime.datetime.now().strftime("%H:%M:%S"), "message": text, "mood": ""})
         with open("json\\" + str(self.session_id) + ".json", "w") as file:
-            file.dump(file_data, file, indent=2)
+            json.dump(file_data, file, indent=2)
 
     def add_mood(self, index, mood):
         with open("json\\" + str(self.session_id) + ".json", "r") as file:
@@ -76,9 +76,9 @@ class MoodSession:
             for mood, index in zip(file_data["Moods"], range(len(file_data["Moods"]))):
                 if exclude:
                     if mood["mood"] != "":
-                        temp_data.append(tuple(index, mood))
+                        temp_data.append((index, mood))
                 else:
-                    temp_data.append(tuple(index, mood))
+                    temp_data.append((index, mood))
             return temp_data
 
 
