@@ -126,3 +126,4 @@ dmypy.json
 
 # Project Specific
 /Moods
+/.idea
